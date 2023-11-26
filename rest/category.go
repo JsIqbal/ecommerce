@@ -22,6 +22,16 @@ type Category struct {
 	Children     []*Category `json:"children"`
 }
 
+// @Summary Create a new category
+// @Description Create a new category with the provided details
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param request body createCategoryReq true "Category details to create"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories [post]
 func (s *Server) createCategory(ctx *gin.Context) {
 	var req createCategoryReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -31,8 +41,6 @@ func (s *Server) createCategory(ctx *gin.Context) {
 	}
 
 	logger.Info(ctx, "req payload", req)
-
-	// TODO: need to check whether the parent category id exists
 
 	ctgry := &service.Category{
 		Name:      req.Name,
@@ -53,6 +61,17 @@ func (s *Server) createCategory(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully created", newCategory))
 }
 
+// @Summary Get a category by ID
+// @Description Get details of a category based on the provided ID
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path string true "Category ID" format "uuid"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories/{id} [get]
 func (s *Server) getCategory(ctx *gin.Context) {
 	var req getCategoryReq
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -75,6 +94,17 @@ func (s *Server) getCategory(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully fetched", ctgry))
 }
 
+// @Summary Get a list of categories
+// @Description Get a paginated list of categories based on the provided parameters
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param page query int true "Page number (starting from 1)"
+// @Param limit query int true "Number of items per page (min: 1, max: 100)"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories [get]
 func (s *Server) getCategories(ctx *gin.Context) {
 	var req getCategoriesReq
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -97,6 +127,14 @@ func (s *Server) getCategories(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched categories", result))
 }
 
+// @Summary Get a formatted list of categories
+// @Description Get a formatted list of categories with hierarchical structure
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Success 200 {object} SuccessResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories/tree [get]
 func (s *Server) getFormattedCategories(ctx *gin.Context) {
 	result, err := s.svc.GetCategories(ctx, 1, service.MAX_INF)
 	if err != nil {
@@ -119,6 +157,18 @@ func (s *Server) getFormattedCategories(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched categories", categories))
 }
 
+// @Summary Update a category
+// @Description Update an existing category with the provided details
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path string true "Category ID" format "uuid"
+// @Param request body updateCategoryReq true "Category details to update"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories/{id} [put]
 func (s *Server) updateCategory(ctx *gin.Context) {
 	var req updateCategoryReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -165,6 +215,17 @@ func (s *Server) updateCategory(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully updated", ctgry))
 }
 
+// @Summary Delete a category
+// @Description Delete an existing category based on the provided ID
+// @Tags Categories
+// @Accept json
+// @Produce json
+// @Param id path string true "Category ID" format "uuid"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/categories/{id} [delete]
 func (s *Server) deleteCategory(ctx *gin.Context) {
 	var req deleteCategoryReq
 	if err := ctx.ShouldBindUri(&req); err != nil {

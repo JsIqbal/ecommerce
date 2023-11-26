@@ -11,6 +11,16 @@ import (
 	"github.com/jsiqbal/ecommerce/util"
 )
 
+// @Summary Create a new supplier
+// @Description Create a new supplier with the provided details
+// @Tags Suppliers
+// @Accept json
+// @Produce json
+// @Param request body createSupplierReq true "Supplier details to create"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/suppliers [post]
 func (s *Server) createSupplier(ctx *gin.Context) {
 	var req createSupplierReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -50,6 +60,17 @@ func (s *Server) createSupplier(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully created", newSpplr))
 }
 
+// @Summary Get a supplier by ID
+// @Description Get details of a supplier based on the provided ID
+// @Tags Suppliers
+// @Accept json
+// @Produce json
+// @Param id path string true "Supplier ID" format "uuid"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/suppliers/{id} [get]
 func (s *Server) getSupplier(ctx *gin.Context) {
 	var req getSupplierReq
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -72,6 +93,17 @@ func (s *Server) getSupplier(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully fetched", spplr))
 }
 
+// @Summary Get a list of suppliers
+// @Description Get a list of suppliers with pagination support
+// @Tags Suppliers
+// @Accept json
+// @Produce json
+// @Param page query int true "Page number" minimum 1
+// @Param limit query int true "Number of items per page" minimum 1 maximum 100
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/suppliers [get]
 func (s *Server) getSuppliers(ctx *gin.Context) {
 	var req getSuppliersReq
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -94,6 +126,18 @@ func (s *Server) getSuppliers(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched suppliers", result))
 }
 
+// @Summary Update a supplier by ID
+// @Description Update details of a supplier based on the provided ID
+// @Tags Suppliers
+// @Accept json
+// @Produce json
+// @Param id path string true "Supplier ID" format "uuid"
+// @Param request body updateSupplierReq true "Supplier details to update"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/suppliers/{id} [put]
 func (s *Server) updateSupplier(ctx *gin.Context) {
 	var req updateSupplierReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -124,7 +168,6 @@ func (s *Server) updateSupplier(ctx *gin.Context) {
 		return
 	}
 
-	// update spplr
 	spplr.Name = req.Name
 	spplr.Email = req.Email
 	spplr.Phone = req.Phone
@@ -143,6 +186,17 @@ func (s *Server) updateSupplier(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully updated", spplr))
 }
 
+// @Summary Delete a supplier by ID
+// @Description Delete a supplier based on the provided ID
+// @Tags Suppliers
+// @Accept json
+// @Produce json
+// @Param id path string true "Supplier ID" format "uuid"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/suppliers/{id} [delete]
 func (s *Server) deleteSupplier(ctx *gin.Context) {
 	var req deleteSupplierReq
 	if err := ctx.ShouldBindUri(&req); err != nil {

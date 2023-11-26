@@ -198,38 +198,6 @@ func (r *productRepo) GetItems(ctx context.Context, filterParams service.FilterP
 	return result, nil
 }
 
-// func (r *productRepo) UpdateItemByID(ctx context.Context, productID string, product *service.Product) error {
-// 	_, err := r.db.Exec(
-// 		`UPDATE products
-// 		SET
-// 			name = $1,
-// 			description = $2,
-// 			specifications = $3,
-// 			brand_id = $4,
-// 			category_id = $5,
-// 			supplier_id = $6,
-// 			unit_price = $7,
-// 			discount_price = $8,
-// 			tags = $9,
-// 			status_id = $10,
-// 		WHERE id = $11`,
-// 		product.Name,
-// 		product.Description,
-// 		product.Specifications,
-// 		product.Brand.ID,
-// 		product.Category.ID,
-// 		product.Supplier.ID,
-// 		product.UnitPrice,
-// 		product.DiscountPrice,
-// 		product.Tags,
-// 		product.StatusID,
-// 	)
-// 	if err != nil {
-// 		return err
-// 	}
-
-//		return nil
-//	}
 func (r *productRepo) UpdateItemByID(ctx context.Context, productID string, product *service.Product) error {
 	// Convert the tags slice to a comma-separated string
 	tagsString := strings.Join(product.Tags, ",")

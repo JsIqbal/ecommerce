@@ -10,6 +10,17 @@ import (
 	"github.com/jsiqbal/ecommerce/util"
 )
 
+// @Summary Create a new product
+// @Description Create a new product with the provided details
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param request body createProductReq true "Product details to create"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/products [post]
 func (s *Server) createProduct(ctx *gin.Context) {
 	var req createProductReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -109,6 +120,17 @@ func (s *Server) createProduct(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully created", newProduct))
 }
 
+// @Summary Get a product by ID
+// @Description Get details of a product based on the provided ID
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param id path string true "Product ID"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/products/{id} [get]
 func (s *Server) getProduct(ctx *gin.Context) {
 	var req getProductReq
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -131,6 +153,23 @@ func (s *Server) getProduct(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully fetched", product))
 }
 
+// @Summary Get a list of products with optional filters
+// @Description Get a list of products based on specified filters. If no filters are provided, all products will be retrieved.
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param name query string false "Product name filter"
+// @Param min_price query number false "Minimum price filter"
+// @Param max_price query number false "Maximum price filter"
+// @Param brand_ids query array false "Array of brand IDs filter"
+// @Param category_id query string false "Category ID filter"
+// @Param supplier_id query string false "Supplier ID filter"
+// @Param page query integer false "Page number for pagination"
+// @Param limit query integer true "Number of items to return per page (maximum 100)"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/products [get]
 func (s *Server) getProducts(ctx *gin.Context) {
 	var req getProductsReq
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -162,6 +201,18 @@ func (s *Server) getProducts(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Fetched Products", result))
 }
 
+// @Summary Update a product by ID
+// @Description Update product details based on the specified ID.
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param id path string true "Product ID to update"
+// @Param request body updateProductReq true "Request body to update product"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/products/{id} [put]
 func (s *Server) updateProduct(ctx *gin.Context) {
 	var req updateProductReq
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -192,7 +243,6 @@ func (s *Server) updateProduct(ctx *gin.Context) {
 		return
 	}
 
-	// update product
 	product.Name = req.Name
 	product.Description = req.Description
 	product.Specifications = req.Specifications
@@ -225,6 +275,17 @@ func (s *Server) updateProduct(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, s.svc.Response(ctx, "Successfully updated", product))
 }
 
+// @Summary Delete a product by ID
+// @Description Delete a product based on the specified ID.
+// @Tags Products
+// @Accept json
+// @Produce json
+// @Param id path string true "Product ID to delete"
+// @Success 200 {object} SuccessResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /api/products/{id} [delete]
 func (s *Server) deleteProduct(ctx *gin.Context) {
 	var req deleteProductReq
 	if err := ctx.ShouldBindUri(&req); err != nil {

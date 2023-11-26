@@ -2,17 +2,13 @@
 
 Your Comprehensive Guide for the Project
 
-## This project is deployed in ROBI Cloud:
-
--   Endpoint:
-
 ## Table of Contents
 
 1. [Seed Database](#seed-database)
 2. [Start Application Locally](#start-application-locally)
 3. [Start Application with Docker](#start-application-with-docker)
 
-<a name="seed-database"></a>
+<a name="seed-database"</a>
 
 ## 1. Seed Database(locally) - you need to run postgresql locally
 
@@ -79,17 +75,18 @@ make serve
 make seed
 ```
 
-# API Docs:
+# API Docs (Swagger Documentation):
+
+-   if used docker: http://localhost:5000/docs/index.html
+-   if used local: http://localhost:8080/docs/index.html
 
 # Brand APIs:
 
-## End-point: Create brand
+## End-point: Create brand (Method: POST)
 
-### Method: POST
-
-> ```
-> http://localhost:5000/api/brands
-> ```
+```
+http://localhost:5000/api/brands
+```
 
 ### Body (**raw**)
 
@@ -100,21 +97,17 @@ make seed
 }
 ```
 
-## End-point: Get brand
+## End-point: Get brand (Method: GET)
 
-### Method: GET
+```
+http://localhost:5000/api/brands/:id
+```
 
-> ```
-> http://localhost:5000/api/brands/:id
-> ```
+## End-point: Update Brand (Method: PUT)
 
-## End-point: Update Brand
-
-### Method: PUT
-
-> ```
-> http://localhost:5000/api/brands/:id
-> ```
+```
+http://localhost:5000/api/brands/:id
+```
 
 ### Body (**raw**)
 
@@ -125,21 +118,17 @@ make seed
 }
 ```
 
-## End-point: Delete Brand
+## End-point: Delete Brand (Method: DELETE)
 
-### Method: DELETE
+```
+http://localhost:5000/api/brands/:id
+```
 
-> ```
-> http://localhost:5000/api/brands/:id
-> ```
+## End-point: Get brands (Method: GET)
 
-## End-point: Get brands
-
-### Method: GET
-
-> ```
-> http://localhost:5000/api/brands?page=1&limit=2
-> ```
+```
+http://localhost:5000/api/brands?page=1&limit=2
+```
 
 ### Query Parameters:
 
@@ -152,13 +141,11 @@ make seed
 
 # Product
 
-## End-point: Create product
+## End-point: Create product (Method: POST)
 
-### Method: POST
-
-> ```
-> http://localhost:5000/api/products
-> ```
+```
+http://localhost:5000/api/products
+```
 
 ### Body (**raw**)
 
@@ -177,21 +164,17 @@ make seed
 }
 ```
 
-## End-point: Get product
+## End-point: Get product (Method: GET)
 
-### Method: GET
+```
+http://localhost:5000/api/products/:id
+```
 
-> ```
-> http://localhost:5000/api/products/:id
-> ```
+## End-point: Update product (Method: PUT)
 
-## End-point: Update product
-
-### Method: PUT
-
-> ```
-> http://localhost:5000/api/products/:id
-> ```
+```
+http://localhost:5000/api/products/:id
+```
 
 ### Body (**raw**)
 
@@ -210,21 +193,19 @@ make seed
 }
 ```
 
-## End-point: Delete product
+## End-point: Delete product (Method: DELETE)
 
-### Method: DELETE
-
-> ```
-> http://localhost:5000/api/products/:id
-> ```
+```
+ http://localhost:5000/api/products/:id
+```
 
 ## End-point: Get products
 
 ### Method: GET
 
-> ```
-> http://localhost:5000/api/products?page=1&limit=20
-> ```
+```
+http://localhost:5000/api/products?page=1&limit=20
+```
 
 ### Query Params
 
@@ -237,13 +218,11 @@ make seed
 
 # Supplier APIs
 
-## End-point: Create supplier
+## End-point: Create supplier (Method: POST)
 
-### Method: POST
-
-> ```
-> http://localhost:5000/api/suppliers
-> ```
+```
+http://localhost:5000/api/suppliers
+```
 
 ### Body (**raw**)
 
@@ -257,21 +236,17 @@ make seed
 }
 ```
 
-## End-point: Get supplier
+## End-point: Get supplier (Method: GET)
 
-### Method: GET
+```
+http://localhost:5000/api/suppliers/:id
+```
 
-> ```
-> http://localhost:5000/api/suppliers/:id
-> ```
+## End-point: Update supplier (Method: PUT)
 
-## End-point: Update supplier
-
-### Method: PUT
-
-> ```
-> http://localhost:5000/api/suppliers/:id
-> ```
+```
+http://localhost:5000/api/suppliers/:id
+```
 
 ### Body (**raw**)
 
@@ -285,21 +260,17 @@ make seed
 }
 ```
 
-## End-point: Delete supplier
+## End-point: Delete supplier (Method: DELETE)
 
-### Method: DELETE
+```
+http://localhost:5000/api/suppliers/:id
+```
 
-> ```
-> http://localhost:5000/api/suppliers/:id
-> ```
+## End-point: Get suppliers (Method: GET)
 
-## End-point: Get suppliers
-
-### Method: GET
-
-> ```
-> http://localhost:5000/api/suppliers?page=1&limit=5
-> ```
+```
+http://localhost:5000/api/suppliers?page=1&limit=5
+```
 
 ### Query Params
 
@@ -312,13 +283,11 @@ make seed
 
 # Category APIs:
 
-## End-point: Create category
+## End-point: Create category (Method: POST)
 
-### Method: POST
-
-> ```
-> http://localhost:5000/api/categories
-> ```
+```
+http://localhost:5000/api/categories
+```
 
 ### Body (**raw**)
 
@@ -330,21 +299,17 @@ make seed
 }
 ```
 
-## End-point: Get category
+## End-point: Get category (Method: GET)
 
-### Method: GET
+```
+http://localhost:5000/api/categories/:id
+```
 
-> ```
-> http://localhost:5000/api/categories/:id
-> ```
+## End-point: Update categories (Method: PUT)
 
-## End-point: Update categories
-
-### Method: PUT
-
-> ```
-> http://localhost:5000/api/categories/:id
-> ```
+```
+http://localhost:5000/api/categories/:id
+```
 
 ### Body (**raw**)
 
@@ -355,21 +320,23 @@ make seed
 }
 ```
 
-## End-point: Delete Brand
+## End-point: Delete Brand (Method: DELETE)
 
-### Method: DELETE
+```
+http://localhost:5000/api/categories/:id
+```
 
-> ```
-> http://localhost:5000/api/categories/:id
-> ```
+## End-point: Get categories (Method: GET)
 
-## End-point: Get categories
+```
+http://localhost:5000/api/categories?page=1&limit=5
+```
 
-### Method: GET
+## End-point: Get category tree (Method: GET)
 
-> ```
-> http://localhost:5000/api/categories?page=1&limit=5
-> ```
+```
+http://localhost:5000/api/categories/tree
+```
 
 ### Query Params
 
@@ -379,14 +346,6 @@ make seed
 | limit | 5     |
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
-
-## End-point: Get category tree
-
-### Method: GET
-
-> ```
-> http://localhost:5000/api/categories/tree
-> ```
 
 ## Thank You!
 

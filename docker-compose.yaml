@@ -33,8 +33,6 @@ services:
             - LOG_FILE_PATH=/var/log/backend.log
         ports:
             - 5000:8080
-        # volumes:
-        #   - ./:/app
 
 volumes:
     postgres-data:

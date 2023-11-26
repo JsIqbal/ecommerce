@@ -1,0 +1,909 @@
+basePath: /
+definitions:
+  rest.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  rest.SuccessResponse:
+    properties:
+      data: {}
+      description:
+        type: string
+      timestamp:
+        type: integer
+    type: object
+  rest.createCategoryReq:
+    properties:
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      parent_id:
+        type: string
+      status_id:
+        type: integer
+    required:
+    - name
+    - status_id
+    type: object
+  rest.createProductReq:
+    properties:
+      brand_id:
+        type: string
+      category_id:
+        type: string
+      description:
+        maxLength: 500
+        minLength: 2
+        type: string
+      discount_price:
+        minimum: 0
+        type: number
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      specifications:
+        maxLength: 500
+        minLength: 0
+        type: string
+      status_id:
+        type: integer
+      stock_quantity:
+        minimum: 1
+        type: integer
+      supplier_id:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      unit_price:
+        minimum: 0
+        type: number
+    required:
+    - brand_id
+    - category_id
+    - description
+    - discount_price
+    - name
+    - status_id
+    - stock_quantity
+    - supplier_id
+    - tags
+    - unit_price
+    type: object
+  rest.createSupplierReq:
+    properties:
+      email:
+        type: string
+      is_verified_supplier:
+        type: boolean
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      phone:
+        type: string
+      status_id:
+        type: integer
+    required:
+    - email
+    - is_verified_supplier
+    - name
+    - phone
+    - status_id
+    type: object
+  rest.updateBrandReq:
+    properties:
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      status_id:
+        type: integer
+    required:
+    - name
+    - status_id
+    type: object
+  rest.updateCategoryReq:
+    properties:
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      status_id:
+        type: integer
+    required:
+    - name
+    type: object
+  rest.updateProductReq:
+    properties:
+      brand_id:
+        type: string
+      category_id:
+        type: string
+      description:
+        maxLength: 500
+        minLength: 2
+        type: string
+      discount_price:
+        minimum: 0
+        type: number
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      specifications:
+        maxLength: 500
+        minLength: 0
+        type: string
+      status_id:
+        type: integer
+      stock_quantity:
+        minimum: 1
+        type: integer
+      supplier_id:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      unit_price:
+        minimum: 0
+        type: number
+    required:
+    - brand_id
+    - category_id
+    - description
+    - discount_price
+    - name
+    - status_id
+    - stock_quantity
+    - supplier_id
+    - tags
+    - unit_price
+    type: object
+  rest.updateSupplierReq:
+    properties:
+      email:
+        type: string
+      is_verified_supplier:
+        type: boolean
+      name:
+        maxLength: 50
+        minLength: 2
+        type: string
+      phone:
+        type: string
+      status_id:
+        type: integer
+    required:
+    - email
+    - is_verified_supplier
+    - name
+    - phone
+    - status_id
+    type: object
+host: localhost:5000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server todo server. You can Follow Iqbal Hossain at
+    https://github.com/JsIqbal
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Ecommerce Assessment by IQBAL HOSSAIN
+  version: "1.0"
+paths:
+  /api/brands:
+    get:
+      consumes:
+      - application/json
+      description: Get a paginated list of brands based on the provided parameters
+      parameters:
+      - description: Page number (starting from 1)
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 'Number of items per page (min: 1, max: 100)'
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a list of brands
+      tags:
+      - Brands
+    post:
+      consumes:
+      - application/json
+      description: Create a new brand with the provided details
+      parameters:
+      - description: Brand details to create
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.updateBrandReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Create a new brand
+      tags:
+      - Brands
+  /api/brands/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing brand based on the provided ID
+      parameters:
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Delete a brand
+      tags:
+      - Brands
+    get:
+      description: Get a brand based on the provided ID
+      operationId: get-brand
+      parameters:
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a brand by ID
+      tags:
+      - Brands
+    put:
+      consumes:
+      - application/json
+      description: Update an existing brand with the provided details
+      parameters:
+      - description: Brand ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Brand details to update
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.updateBrandReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Update a brand
+      tags:
+      - Brands
+  /api/categories:
+    get:
+      consumes:
+      - application/json
+      description: Get a paginated list of categories based on the provided parameters
+      parameters:
+      - description: Page number (starting from 1)
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 'Number of items per page (min: 1, max: 100)'
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a list of categories
+      tags:
+      - Categories
+    post:
+      consumes:
+      - application/json
+      description: Create a new category with the provided details
+      parameters:
+      - description: Category details to create
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.createCategoryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Create a new category
+      tags:
+      - Categories
+  /api/categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing category based on the provided ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Delete a category
+      tags:
+      - Categories
+    get:
+      consumes:
+      - application/json
+      description: Get details of a category based on the provided ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a category by ID
+      tags:
+      - Categories
+    put:
+      consumes:
+      - application/json
+      description: Update an existing category with the provided details
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Category details to update
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.updateCategoryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Update a category
+      tags:
+      - Categories
+  /api/categories/tree:
+    get:
+      consumes:
+      - application/json
+      description: Get a formatted list of categories with hierarchical structure
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a formatted list of categories
+      tags:
+      - Categories
+  /api/products:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of products based on specified filters. If no filters
+        are provided, all products will be retrieved.
+      parameters:
+      - description: Product name filter
+        in: query
+        name: name
+        type: string
+      - description: Minimum price filter
+        in: query
+        name: min_price
+        type: number
+      - description: Maximum price filter
+        in: query
+        name: max_price
+        type: number
+      - description: Array of brand IDs filter
+        in: query
+        name: brand_ids
+        type: array
+      - description: Category ID filter
+        in: query
+        name: category_id
+        type: string
+      - description: Supplier ID filter
+        in: query
+        name: supplier_id
+        type: string
+      - description: Page number for pagination
+        in: query
+        name: page
+        type: integer
+      - description: Number of items to return per page (maximum 100)
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a list of products with optional filters
+      tags:
+      - Products
+    post:
+      consumes:
+      - application/json
+      description: Create a new product with the provided details
+      parameters:
+      - description: Product details to create
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.createProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Create a new product
+      tags:
+      - Products
+  /api/products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product based on the specified ID.
+      parameters:
+      - description: Product ID to delete
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Delete a product by ID
+      tags:
+      - Products
+    get:
+      consumes:
+      - application/json
+      description: Get details of a product based on the provided ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a product by ID
+      tags:
+      - Products
+    put:
+      consumes:
+      - application/json
+      description: Update product details based on the specified ID.
+      parameters:
+      - description: Product ID to update
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Request body to update product
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.updateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Update a product by ID
+      tags:
+      - Products
+  /api/suppliers:
+    get:
+      consumes:
+      - application/json
+      description: Get a list of suppliers with pagination support
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: Number of items per page
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a list of suppliers
+      tags:
+      - Suppliers
+    post:
+      consumes:
+      - application/json
+      description: Create a new supplier with the provided details
+      parameters:
+      - description: Supplier details to create
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.createSupplierReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Create a new supplier
+      tags:
+      - Suppliers
+  /api/suppliers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a supplier based on the provided ID
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Delete a supplier by ID
+      tags:
+      - Suppliers
+    get:
+      consumes:
+      - application/json
+      description: Get details of a supplier based on the provided ID
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Get a supplier by ID
+      tags:
+      - Suppliers
+    put:
+      consumes:
+      - application/json
+      description: Update details of a supplier based on the provided ID
+      parameters:
+      - description: Supplier ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Supplier details to update
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/rest.updateSupplierReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/rest.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: Update a supplier by ID
+      tags:
+      - Suppliers
+swagger: "2.0"

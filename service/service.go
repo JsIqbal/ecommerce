@@ -23,14 +23,12 @@ func NewService(
 	ctgryRepo CategoryRepo,
 	spplrRepo SupplierRepo,
 	productRepo ProductRepo,
-	// productStockRepo ProductStockRepo,
 ) Service {
 	return &service{
 		brandRepo:   brandRepo,
 		ctgryRepo:   ctgryRepo,
 		spplrRepo:   spplrRepo,
 		productRepo: productRepo,
-		// productStockRepo: productStockRepo,
 	}
 }
 
@@ -42,7 +40,7 @@ func (s *service) Response(ctx context.Context, description string, data interfa
 	}
 }
 
-/////////////////////////////////////////// Brand /////////////////////////////////
+//----------------BRAND----------------
 
 func (s *service) AddBrand(ctx context.Context, brand *Brand) (*Brand, error) {
 	newBrand, err := s.brandRepo.Add(ctx, brand)
@@ -89,7 +87,7 @@ func (s *service) DeleteBrand(ctx context.Context, brandID string) error {
 	return nil
 }
 
-/////////////////////////////////////////// Category /////////////////////////////////
+//----------------CATEGORY----------------
 
 func (s *service) AddCategory(ctx context.Context, ctgry *Category) (*Category, error) {
 	ctgry, err := s.ctgryRepo.Add(ctx, ctgry)
@@ -136,7 +134,7 @@ func (s *service) DeleteCategory(ctx context.Context, ctgryID string) error {
 	return nil
 }
 
-/////////////////////////////////////////// Supplier /////////////////////////////////
+//----------------SUPPLIER----------------
 
 func (s *service) AddSupplier(ctx context.Context, spplr *Supplier) (*Supplier, error) {
 	newSpplr, err := s.spplrRepo.Add(ctx, spplr)
@@ -183,7 +181,7 @@ func (s *service) DeleteSupplier(ctx context.Context, spplrID string) error {
 	return nil
 }
 
-/////////////////////////////////////////// Product /////////////////////////////////
+//----------------PRODUCT----------------
 
 func (s *service) AddProduct(ctx context.Context, product *Product) (*Product, error) {
 	product, err := s.productRepo.Add(ctx, product)

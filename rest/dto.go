@@ -1,5 +1,16 @@
 package rest
 
+// --------------Responses --------------
+type ErrorResponse struct {
+	Message string `json:"message"`
+}
+
+type SuccessResponse struct {
+	Timestamp   int64       `json:"timestamp"`
+	Description string      `json:"description"`
+	Data        interface{} `json:"data"`
+}
+
 /////////////////////// brand dtos //////////////////////
 
 type createBrandReq struct {
