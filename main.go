@@ -8,7 +8,7 @@ import (
 
 // @title Ecommerce Assessment by IQBAL HOSSAIN
 // @version 1.0
-// @description This is a sample server todo server. You can Follow Iqbal Hossain at https://github.com/JsIqbal
+// @description This is the Assessment Ecomerce server. You can Follow Iqbal Hossain at https://github.com/JsIqbal
 
 // @contact.name API Support
 // @contact.url http://www.swagger.io/support
