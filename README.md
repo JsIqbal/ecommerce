@@ -48,6 +48,12 @@ make serve
 make seed
 ```
 
+-   Terminate the make serve terminal and restart the project using
+
+```bash
+make serve
+```
+
 <!-- Start Application -->
 
 # Start Application
